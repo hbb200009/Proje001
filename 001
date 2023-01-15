@@ -2,25 +2,23 @@ from tkinter import Label, Tk
 from tkinter import *
 
 app_window = Tk()
-app_window.title("Smart")
+app_window.title("HBB2000")
 app_window.geometry("700x500+500+300")
 app_window.resizable(width=False, height=False)
+app_window.configure(bg='blue')
 
-text_font = ("Boulder", 68, 'bold')
-background = "#f2e750"
-foreground = "#363529"
-border_width = 25
+text_font = ("Boulder", 100, 'bold')
+foreground= "black"
+background= "blue"
+border_width = 0
 
 label = Label(app_window, font=text_font, bg=background, fg=foreground, bd=border_width)
+label.grid(row=0, column=1)
 
-def Merhaba(self):
-    print("Button clicked")
-    label.config(text="Merhaba")
-    label.after(200, "Merhaba")
+def Yazi():
+    print("HBB2000 yazısı yazılıyor...")
+    label.config(text="HBB2000")
+    label.after(200)
 
-btn1= Button(app_window, width=20, height=20, text = 'Button')
-btn1.pack()
-btn1.bind("<Button-1>" ,Merhaba)
-btn1.config(text="Merhaba")
-
+Yazi()
 app_window.mainloop()
