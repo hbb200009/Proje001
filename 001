@@ -1,0 +1,26 @@
+from tkinter import Label, Tk
+from tkinter import *
+
+app_window = Tk()
+app_window.title("Smart")
+app_window.geometry("700x500+500+300")
+app_window.resizable(width=False, height=False)
+
+text_font = ("Boulder", 68, 'bold')
+background = "#f2e750"
+foreground = "#363529"
+border_width = 25
+
+label = Label(app_window, font=text_font, bg=background, fg=foreground, bd=border_width)
+
+def Merhaba(self):
+    print("Button clicked")
+    label.config(text="Merhaba")
+    label.after(200, "Merhaba")
+
+btn1= Button(app_window, width=20, height=20, text = 'Button')
+btn1.pack()
+btn1.bind("<Button-1>" ,Merhaba)
+btn1.config(text="Merhaba")
+
+app_window.mainloop()
