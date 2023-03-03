@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sayfam</title>
+</head>
+<body>
+
+<h1>Başlık</h1>
+
+<p>Paragraf.</p>
+
+<body style="background-color:white;">
+
+<img src="https://play-lh.googleusercontent.com/EiElcSrd6-o-19roiswSx0AZPzsq6qF3hUGHsSWDl5UVtj7G23DHkneM8ucwqyOmEg" alt="https://play-lh.googleusercontent.com/EiElcSrd6-o-19roiswSx0AZPzsq6qF3hUGHsSWDl5UVtj7G23DHkneM8ucwqyOmEg" style="width:85px;height:85px;">
+
+<p>Görünmez <!-- görünmeyen yazı --> yazılı paragraf.</p>
+
+<i>Yazı tipi.</i>
+<br>
+<a href="youtube.com">Site linki</a>
+
+<h1 style="background-color:red;">Arkaplanı renkli başlık</h1>
+<p style="background-color:red;">Arkaplanı renkli paragraf.</p>
+
+<h1 style="color:red;">Renkli başlık</h1>
+<p style="color:red;">Renkli paragraf.</p>
+
+</body>
+</html>
