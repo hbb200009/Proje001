@@ -72,32 +72,28 @@
             transform: scale(1.3);
         }
         
-        #preloader{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000; /* arka plan */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-        #preloader img{
-            width: 150px;
-            animation: pulse 1.2s infinite ease-in-out;
-        }
-        @keyframes pulse{
-            0%{transform: scale(1);}
-            50%{transform: scale(1.1);}
-            100%{transform: scale(1);}
-        }
-        #preloader.fade-out{
-            opacity: 0;
-            visibility: hidden;
-        }
+        #bg-screen{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1;
+}
+
+#bg-screen img{
+    width:180px;
+    opacity:0.7;
+}
+
+#app{
+    position:relative;
+    z-index:2;
+}
         
 /* OVERLAY PREVIEW */
 .episode-preview{
@@ -254,9 +250,11 @@
     </style>
     <body>
         <header>
-          <div id="preloader">
-               <img src="images/cosmic_logo1.png" alt="loading">
+          <div id="bg-screen">
+              <img src="images/cosmic_logo1.png" alt="bg">
           </div>
+
+          <div id="app"></div>
           <!--IMAGES-->
           <img src="images/cosmic_logo1.png" alt="" style="width: 20%; height: auto; position: absolute; left: 40%; right: 40%; top: 1.5%; z-index: 10; display: inline-block;">
         </header>
@@ -496,31 +494,16 @@
         ></script>
 
         <script>
-const preloader = document.getElementById("preloader");
-
-// FAILSAFE (sigorta)
-setTimeout(()=>{
-  preloader.classList.add("fade-out");
-  setTimeout(()=>{
-    preloader.style.display = "none";
-  },600);
-}, 4000); // 4 sn sonra ne olursa olsun kapat
-
 fetch("RAW_LINK")
   .then(res => res.text())
   .then(data => {
     document.getElementById("app").innerHTML = data;
 
-    preloader.classList.add("fade-out");
-    setTimeout(()=>{
-      preloader.style.display = "none";
-    },600);
+    // istersen bg'yi gizle
+    document.getElementById("bg-screen").style.display = "none";
   })
   .catch(()=>{
-    preloader.classList.add("fade-out");
-    setTimeout(()=>{
-      preloader.style.display = "none";
-    },600);
+    document.getElementById("bg-screen").style.display = "none";
   });
 </script>
 
