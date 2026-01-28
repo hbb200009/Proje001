@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="tr">
+    <head>
+        <title>Ana Sayfa</title>
+        <link rel="icon" href="images/LOGO WHİTE DİFFERENT.png" type="image/x-icon">
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta charset="utf-8" />
+        <meta name='Description' content='HelloWorld' />
+        <meta name='version' content='1.0.0' />
+        <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no viewport-fit=cover' />
+        <meta name='theme-color' content='#000000' />
+        <meta name='mobile-web-app-capable' content='yes' />
+        <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
+        <meta name='apple-mobile-web-app-title' content='' />
+        
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+        
+        <script src="cordova.js"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+              // Geçerli tarih ve saat bilgisini al
+              var simdikiTarih = new Date();
+              // Sayfanın geçerli olmasını istediğiniz son tarihi belirleyin (Yıl, Ay (0-11), Gün)
+              var sonTarih = new Date(2026, 1, 17); // 17 Şubat 2025 (Aylar 0'dan başlar, Şubat = 1)
+  
+              // Eğer mevcut tarih son tarihi geçmişse
+              if (simdikiTarih >= sonTarih) {
+                  alert("Yeni haber! Uygulamamızın yeni bir sürümü var! Giriş yapabilmek için güncellemeyi indirin...");
+                  window.location.href = "main/update_alert.html"; // Yönlendirme yapılacak sayfa
+              }
+          });
+      </script>
+        <meta
+        
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+    </head>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+        }
+        .cutter {
+            clear: both;
+        }
+        .carousel-indicators button.viewer{
+            width: 9px !important;
+            height: 6px !important;
+            border-radius: 5px !important;
+            background: rgba(255,255,255,0.4) !important;
+            margin: 0 5px !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+        
+        .carousel-indicators button.viewer.active{
+            opacity: 0.5;
+            background: #fff !important;
+            transform: scale(1.3);
+        }
+        
+        #preloader{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000; /* arka plan */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #preloader img{
+            width: 150px;
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+        @keyframes pulse{
+            0%{transform: scale(1);}
+            50%{transform: scale(1.1);}
+            100%{transform: scale(1);}
+        }
+        #preloader.fade-out{
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+/* OVERLAY PREVIEW */
+.episode-preview{
+    display:none;
+    position: relative;
+    width:100%;
+    padding:20px;
+    z-index:20;
+}
+
+.episode-preview.active{
+    display:block;
+}
+
+.preview-card2, .preview-card1, .preview-card3{
+    width:100%;
+    margin:auto;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.2);
+    padding:20px;
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
+    animation: dropIn 0.3s ease;
+    position: relative;
+}
+
+@keyframes dropIn{
+    from{transform:translateY(-10px); opacity:0;}
+    to{transform:translateY(0); opacity:1;}
+}
+
+#closePreview2, #closePreview1, #closePreview3{
+    position:absolute;
+    top:12px;
+    right:15px;
+    cursor:pointer;
+    font-size:18px;
+    opacity:0.7;
+}
+
+#previewTitle2, #previewTitle1, #previewTitle3{
+    font-size:18px;
+    font-weight:700;
+}
+
+#previewText2, #previewText1{
+    font-size:14px;
+    margin-top:10px;
+    opacity:0.9;
+}
+
+#readBtn2, #readBtn1, #readBtn3{
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    background:linear-gradient(135deg,#ffffff,#cfcfcf);
+    color:black;
+    font-weight:700;
+    font-size:15px;
+}
+
+.row-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 0px;
+}
+
+.row-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  min-width: 100px;   /* poster genişliği */
+  flex-shrink: 0;
+  background-color: black;
+}
+
+.card img {
+  width: 100%;
+  height: 170px;      /* DİKEYLİK BURADA */
+  object-fit: cover; /* taşanı kes, estetik */
+  border-radius: 10px;
+  border: 1px solid gray;"
+}
+
+.hero-box{
+    position: relative;
+    width: 100%;
+    height: 250px;   /* 🔥 BURAYI DEĞİŞTİR = yüksekliği sen belirlersin */
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.hero-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* SİYAH GRADIENT */
+.hero-gradient{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;   /* 🔥 sağdan sola ne kadar kaplasın */
+    height: 50%;  /* 🔥 alttan üste ne kadar çıksın */
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.9),
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,0)
+    );
+}
+
+/* YAZI + BUTON */
+.hero-content{
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    right: 5%;
+    z-index: 5;
+    text-align: center;
+}
+
+.hero-content h2{
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.hero-content p{
+    font-size: 10px;
+    opacity: 0.85;
+    margin: 0px 0 10px;
+}
+
+.hero-btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:7px 20px;
+    border-radius:14px;
+    background:white;
+    color:black;
+    font-weight:700;
+    text-decoration:none;
+}
+
+    </style>
+    <body>
+        <header>
+           <div id="preloader">
+               <img src="images/cosmic_logo1.png" alt="loading">
+          </div>
+          <!--IMAGES-->
+          <img src="images/cosmic_logo1.png" alt="" style="width: 20%; height: auto; position: absolute; left: 40%; right: 40%; top: 1.5%; z-index: 10; display: inline-block;">
+        </header>
+
+        <main>
+          <div style="padding: 8% 50%; background-color: black; position: fixed; bottom: 0%; z-index: 5; opacity: 0.8;"></div>
+            <a href="menu.html"> <img src="images/house.png" alt="" style="color: white; width: 8%; height: auto; position: fixed; bottom: 1.5%; left: 17%; z-index: 10;"> </a>
+            <a href="all_story.html"> <img src="images/story.png" alt="" style="color: white; width: 9%; height: auto; position: fixed; bottom: 1.5%; left: 45%; z-index: 10;"> </a>
+            <a href="information.html"> <img src="images/info.png" alt="" style="color: white; width: 9%; height: auto; position: fixed; bottom: 1.5%; right: 17%; z-index: 10;"> </a>
+            <!-- Carousel -->
+            <div id="demo" class="carousel slide" data-bs-ride="carousel">
+                
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators" style="margin-bottom: -8%;">
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active viewer"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1" class="viewer"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="2" class="viewer"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="3" class="viewer"></button>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner" style="width: 100%; margin-top: 12%; margin-left: 0%; margin-right: 0%; z-index: -1;">
+                    <div class="carousel-item active">
+                        <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/quality_restoration_20251217181442969.png" alt="banner" class="d-block dark_theme" style="width:100%">
+                        <div class="carousel-caption" style="z-index: 10;">
+                            <h1 class="text-center description" style="text-align: center; margin-bottom: 2%; font-weight: 900;">Sezon 1 Yayında!</h1>
+                            <p class="description" style="text-align: center; margin-bottom: 2%; font-weight: 500;">Tatil başladı, üyeler toplandı. Ama burada olay ve macera eksik olmuyor! Cosmic Stars evi sırların kapısını açıyor.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/quality_restoration_20251217181700270.jpg" alt="banner" class="d-block dark_theme" style="width:100%">
+                        <div class="carousel-caption" style="z-index: 10;">
+                            <h1 class="text-center description" style="text-align: center; margin-bottom: 2%; font-weight: 900;">Sezon 2 Yayında!</h1>
+                            <p class="description" style="text-align: center; margin-bottom: 2%; font-weight: 500;">Nisa'nın hastanelik olması hiçbirşeydi. Sorunlar peşlerini bırakmıyordu. Artık saklamaları gereken bir sırları var...</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/newbnner.png" alt="banner" class="d-block dark_theme" style="width:100%">  
+                        <div class="carousel-caption" style="z-index: 10;">
+                            <h1 class="text-center description" style="text-align: center; margin-bottom: 2%; font-weight: 900;">Karanlık Yıldızlar Yayında!</h1>
+                            <p class="description" style="text-align: center; margin-bottom: 2%; font-weight: 500;">Kendileri olan ama herşeyin farklı olduğu bir dünyada üyeler büyük bir oyunun ortasında kalıyor.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/quality_restoration_20251217180844796.png" alt="banner" class="d-block dark_theme" style="width:100%">
+                        <div class="carousel-caption" style="z-index: 10;">
+                            <h1 class="text-center description" style="text-align: center; margin-bottom: 2%; font-weight: 900;">Sezon 3 Yakında!</h1>
+                            <p class="description" style="text-align: center; margin-bottom: 2%; font-weight: 500;">Daha sona ermedi. 3.sezonda işler kızışıyor. Final sezonu bomba gibi geliyor!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+          <br>
+          
+          <!--ÖNE ÇIKANLAR-->
+            <div style="margin-top: 10%;">
+                <h6 style="margin-left: 2%; color: white;"><b>Öne Çıkanlar</b></h6>
+                <div class="row-scroll" style="margin-top: 1%;">
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS2E7.png" alt="image3" style="height: 350px;" onclick="showPreviewS3(
+'2.Sezon 6.Bölüm - Tuzak',
+'İlk kendine gelen Eda oldu. Ellerini, ayaklarını ve ağzını sıkıca bağlamışlardı; sandalyeye sabitlenmişti. Gözlerini açar açmaz kaçırıldıklarını fark etti. Diğerleri hâlâ sandalyelerinde baygın haldeydi. Saatlerce hareketsiz ve iple bağlı kaldığı için vücudu tutulmuş, her yeri ağrıyordu. Ellerini ve ayaklarını oynatmaya çalıştı, ama nafileydi. Ağzı bantlıydı, çıkarmaya çalıştı, fakat başaramadı.',
+'S2E6.html'
+)">
+  </div>
+
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS1E3.png" alt="image2" style="height: 350px;" onclick="showPreviewS3(
+'1.Sezon 3.Bölüm - Bir Çift Uzaylı Canavar',
+'Kaç defa konuşmaya çalıştıysam, her seferinde kaçtığı için artık denemek içimden gelmiyordu. Salondaydım. Herkes bir işle meşguldü; ya odasındaydı ya da başka bir yerde. Ben ise koltuğa uzanmış, kulaklığımdan çalan müzikle öylece Alyayı düşünüyordum. Yılbaşı gecesi tam 12de ona yazdığımda kabul etmesiyle o kadar mutlu olmuştum ki...',
+'S1E3.html'
+)">
+  </div>
+
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS2E10.png" alt="image2" style="height: 350px;" onclick="showPreviewS3(
+'2.Sezon 10.Bölüm - Huzur',
+'Kendine o kadar inanmış ve gerçek katilin onlar olduğunu düşünen dedektif, sorgulardan sonra evi aratmasına rağmen evde bir şey bulamayınca büyük hayal kırıklığı yaşadı ve en sonunda pes etti. Polisleri topladı ve üyelere son bir söz söyledi: “Ev araması da temiz çıktı. Delil yok; suçlu değilsiniz..',
+'S2E10.html'
+)">
+  </div>
+
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS1E9.png" alt="image3" style="height: 350px;" onclick="showPreviewS3(
+'1.Sezon 9.Bölüm - Özel Hayatlar',
+'O geceden sonra öğle saatlerinde Nisa uyanır. Emre çoktan uyanıp gitmiştir. Yataktan zar zor kalkar. On dakika sonra alt kata, salona iner. Aysima, Mihriban, Halime, Alya, Belinay ve Rabia oradadır. Oturmuş, hepsi bir yandan sohbet etmekte, bir yandan da telefonla oynamaktadırlar. Nisa yanlarına gider. Her halinden yeni uyandığı bellidir.',
+'S1E9.html'
+)">
+  </div>
+  
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS2E9.png" alt="image3" style="height: 350px;" onclick="showPreviewS3(
+'2.Sezon 9.Bölüm - Yalanlar',
+'Polislerin eve gelmesiyle birlikte tüm üyeler polis arabalarına bindirilip karakola götürüldü. Hepsinin aklından geçen tek şey, neden baş şüpheli oldukları ve istemeden bir açık verip vermedikleriydi. İçlerini az da olsa rahatlatan tek şey ise aralarında yaptıkları anlaşmaydı...',
+'S2E9.html'
+)">
+  </div>
+  
+</div>
+
+<div class="cutter"></div>
+            <!-- EPISODE PREVIEW OVERLAY -->
+<div id="episodePreview3" class="episode-preview">
+    <div class="preview-card3">
+        <span id="closePreview3">✖</span>
+        <h3 id="previewTitle3">Bölüm Başlığı</h3>
+        <p id="previewText3">Bölüm açıklaması burada</p>
+        <button id="readBtn3">Şimdi Hemen Oku! </button>
+    </div>
+</div>
+          
+          <!--S1-->
+          <h6 style="margin-left: 2%; margin-top: 10%; color: white;"><b>1.Sezonun Eksiksiz Eğlenceleri</b></h6>
+<div class="row-scroll" style="margin-top: 1%;">
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS1E2.png" alt="image3" onclick="showPreviewS1(
+'1.Sezon 2.Bölüm - Turistler Firarda',
+'Aylarca istenen buluşma nihayet gerçek olmuştu. Ama üyeler şimdilik o kadar da eğlenmiyordu. Yapacak hiçbir şey bulamamışlar, tüm grup salonda oturuyordu. Herkes kendi köşesinde ya da birkaç kişiyle takılıyor, zaman öldürüyordu. Fakat bu tatile biraz eğlence katmanın zamanı gelmişti.',
+'S1E2.html'
+)">
+  </div>
+
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS1E4.png" alt="image2" onclick="showPreviewS1(
+'1.Sezon 4.Bölüm - Gece Çetesi',
+'Ömer tek çareyi anladı: dikkat dağıtmak. Çete lideri konuşmaya başladığında ani bir hareketle kolunu tutanın taşşağına dirsek attı. Herif acıyla kıvrıldı. Ömer diğerlerinden sıyrıldı. Mami, Volkan ve Fatih de fırsatı değerlendirip kekolara yapıştırdı. Dördü de ayağa fırlayıp uzaklaştı.',
+'S1E4.html'
+)">
+  </div>
+  
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS1E7.png" alt="image3" onclick="showPreviewS1(
+'1.Sezon 7.Bölüm - Kaymaklı Ada Kadayıfı',
+'Burcu ile hemen işe koyulduk. Selvi gelene kadar malzemeleri yapmaya karar verdik. Yirmi dakika bekledikten sonra Selvinin geç geleceğini anladık. Boş boş durmak yerine başka tatlılar yapmaya da karar verdik. Aklımıza gelen her tatlıyı yapıyor, evdeki her şeyi bitirmeye yaklaşmıştık.',
+'S1E7.html'
+)">
+  </div>
+
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS1E8.png" alt="image3" onclick="showPreviewS1(
+'1.Sezon 8.Bölüm - Mavi Kalp ve Kurdele',
+'Yataktan hızlıca doğruldum ve ilk önce aynanın karşısına geçip kendime çeki düzen verdim. Hazır olduğumdan emin olunca derin bir nefes verdim ve odamdan çıktım. Emrenin odasının kapısına gelince, kapıyı iki kere vurduktan sonra içeriye girdim. Emre yatağına uzanmış, laptopu karşısına koymuş film izliyordu. Beni görünce yataktan doğruldu ve şaşırdı.',
+'S1E8.html'
+)">
+  </div>
+  
+</div>
+            
+            <div class="cutter"></div>
+            <!-- EPISODE PREVIEW OVERLAY -->
+<div id="episodePreview1" class="episode-preview">
+    <div class="preview-card1">
+        <span id="closePreview1">✖</span>
+        <h3 id="previewTitle1">Bölüm Başlığı</h3>
+        <p id="previewText1">Bölüm açıklaması burada</p>
+        <button id="readBtn1">Şimdi Hemen Oku! </button>
+    </div>
+</div>
+
+         <!--OZEL BOLUM-->
+         <div class="hero-box" style="margin-top: 10%;">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KYÖBpreview.png" class="hero-img">
+
+    <!-- gradient overlay -->
+    <div class="hero-gradient"></div>
+
+    <!-- content -->
+    <div class="hero-content">
+        <h2>Karanlık Yıldızlar</h2>
+        <p>Kristalin sandıklarından daha güçlü olduğunu öğrenen üyeler kendilerinide kurtarmak isterken yanlış insanlara güveniler. Ama o güvendikleri insanlarda kendileridir.</p>
+        <a href="S1E1.html" class="hero-btn">Hemen Şimdi Oku!</a>
+    </div>
+</div>
+
+
+          <!--S2-->
+            <div style="margin-top: 15%;">
+                <h6 style="margin-left: 2%; color: white;"><b>2.Sezonda Heyecan Yaratanları</b></h6>
+                <div class="row-scroll" style="margin-top: 1%;">
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS2E1.png" alt="image3" onclick="showPreviewS2(
+'2.Sezon 1.Bölüm - Gerçek Olmayan Dostlar',
+'Zaman geçmek bilmiyordu; sanki o beklenen on dakika, on ömür gibi geliyordu. Sessiz bir şekilde düşünüyorlardı. Herkes bunun kimin yaptığını merak ediyor ve kendi içlerinde adeta dedektifçilik oynuyorlardı. Beklenen sessizliği bozan, açılan kapı oldu. İçeriden beyaz önlüklü, gri saçlı, 40-45 yaşlarında bir doktor geldi.',
+'S2E1.html'
+)">
+  </div>
+
+<div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS2E2.png" alt="image2" onclick="showPreviewS2(
+'2.Sezon 2.Bölüm - Kontrolünü Kaybetmek',
+'Ekibimiz barın kapısından içeriye giriş yapar. İçerideki müzik ve hareketlilik, buranın bir disko bar olduğunu hemen belli etmektedir. Ortam oldukça kalabalıktır ve birçok kişi kendini kaybedip sarhoş olmuştur. Bizim ekibimiz de bu atmosferi görünce eğlenme zamanının geldiğini düşünür. Artık biraz kafa dağıtma vaktidir; bu gece onların gecesi olmalıdır.',
+'S2E2.html'
+)">
+  </div>
+
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS2E4.png" alt="image2" onclick="showPreviewS2(
+'2.Sezon 4.Bölüm - Korkular',
+'Sohbetleri, bir anda çalan kapı yüzünden yarıda kaldı. Gecenin birinde ve bu şiddetli yağmurda kim gelmiş olabilirdi? Ecrin, kapıya bakmak için hareketlendi. En tuhaflarına giden şey, gelen kişinin zile basmamış olmasıydı. Bunun yerine kapıya vuruyordu. Evde olduklarını bilen biri gelmişti ama kim?Üçlü, merakla kapıyı açtı. Kapının önündeki kişiyi gören Ecrin, şok içinde kaldı. Belinay ve Alya, kimin geldiğini görememişti. Ecrin, karşısındakini görünce tek kelime edemiyordu.',
+'S2E4.html'
+)">
+  </div>
+
+
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/hbb200009/cosmic_stars/refs/heads/main/KAOSpreviewS2E9.png" alt="image3" onclick="showPreviewS2(
+'2.Sezon 9.Bölüm - Yalanlar',
+'Polislerin eve gelmesiyle birlikte tüm üyeler polis arabalarına bindirilip karakola götürüldü. Hepsinin aklından geçen tek şey, neden baş şüpheli oldukları ve istemeden bir açık verip vermedikleriydi. İçlerini az da olsa rahatlatan tek şey ise aralarında yaptıkları anlaşmaydı...',
+'S2E9.html'
+)">
+  </div>
+  
+</div>
+
+<div class="cutter"></div>
+            <!-- EPISODE PREVIEW OVERLAY -->
+<div id="episodePreview2" class="episode-preview">
+    <div class="preview-card2">
+        <span id="closePreview2">✖</span>
+        <h3 id="previewTitle2">Bölüm Başlığı</h3>
+        <p id="previewText2">Bölüm açıklaması burada</p>
+        <button id="readBtn2">Şimdi Hemen Oku! </button>
+    </div>
+</div>
+
+<br><br><br>
+        </main>
+
+        <footer>
+            <!-- place footer here -->
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script>
+window.addEventListener("load", function(){
+    const preloader = document.getElementById("preloader");
+    preloader.classList.add("fade-out");
+
+    setTimeout(()=>{
+        preloader.style.display = "none";
+    }, 600); // fade süresiyle aynı
+});
+</script>
+
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+
+<script>
+let activeLink1 = null;
+let activeLink2 = null;
+let activeLink3 = null;
+
+/* S1 */
+function showPreviewS1(title,text,link){
+    const panel = document.getElementById("episodePreview1");
+    document.getElementById("previewTitle1").innerText = title;
+    document.getElementById("previewText1").innerText = text;
+    panel.classList.add("active");
+    activeLink1 = link;
+}
+
+document.getElementById("readBtn1").onclick = ()=>{
+    if(activeLink1) window.location.href = activeLink1;
+};
+
+document.getElementById("closePreview1").onclick = ()=>{
+    document.getElementById("episodePreview1").classList.remove("active");
+    activeLink1 = null;
+};
+
+
+/* S2 */
+function showPreviewS2(title,text,link){
+    const panel = document.getElementById("episodePreview2");
+    document.getElementById("previewTitle2").innerText = title;
+    document.getElementById("previewText2").innerText = text;
+    panel.classList.add("active");
+    activeLink2 = link;
+}
+
+document.getElementById("readBtn2").onclick = ()=>{
+    if(activeLink2) window.location.href = activeLink2;
+};
+
+document.getElementById("closePreview2").onclick = ()=>{
+    document.getElementById("episodePreview2").classList.remove("active");
+    activeLink2 = null;
+};
+
+
+/* ONE CIKANLAR */
+function showPreviewS3(title,text,link){
+    const panel = document.getElementById("episodePreview3");
+    document.getElementById("previewTitle3").innerText = title;
+    document.getElementById("previewText3").innerText = text;
+    panel.classList.add("active");
+    activeLink3 = link;
+}
+
+document.getElementById("readBtn3").onclick = ()=>{
+    if(activeLink3) window.location.href = activeLink3;
+};
+
+document.getElementById("closePreview3").onclick = ()=>{
+    document.getElementById("episodePreview3").classList.remove("active");
+    activeLink3 = null;
+};
+</script>
+</body>
+</html>
