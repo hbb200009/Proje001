@@ -496,17 +496,23 @@
         ></script>
 
         <script>
-window.addEventListener("load", function(){
-    const preloader = document.getElementById("preloader");
+const preloader = document.getElementById("preloader");
 
-    setTimeout(() => {
-        preloader.classList.add("fade-out");
+fetch("RAW_LINK")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("app").innerHTML = data;
 
-        setTimeout(()=>{
-            preloader.style.display = "none";
-        }, 600);
-    }, 5000); // 3 saniye bekle
-});
+    setTimeout(()=>{
+      preloader.classList.add("fade-out");
+      setTimeout(()=>{
+        preloader.style.display = "none";
+      },600);
+    },500); // min delay
+  })
+  .catch(()=>{
+    preloader.style.display = "none";
+  });
         </script>
 
         <script
