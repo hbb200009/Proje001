@@ -1,1 +1,275 @@
-Tested
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: white;
+            --glass: white;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050505;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Arka Plan Müzik Kontrolü */
+        #music-toggle {
+            position: fixed;
+            top: 20px; right: 20px;
+            z-index: 1000;
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* Hero Bölümü */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;            
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), #050505), 
+                        url('https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/3.jpg'); /* Örnek Background */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h3 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--accent);
+            animation: glow 2s infinite alternate;
+            text-align: center;
+        }        
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--accent); }
+            to { text-shadow: 0 0 30px #ff7eb3, 0 0 10px var(--accent); }
+        }
+
+        /* Galeri Grid */
+        .album-container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .photo-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+        
+        .photo-card-overlay{
+            background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.6) 50%,
+        rgba(0,0,0,0.9) 100%
+    );
+        }
+        
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(40%);
+            transition: 0.5s;
+        }
+
+        .photo-card:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* Modal (Tıklayınca Büyüyen) */
+        .modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 0 50px var(--accent);
+            transform: scale(0.8);
+            transition: 0.3s;
+        }
+
+        .modal.active { display: flex; }
+        .modal.active .modal-img { transform: scale(1); }
+        
+        .row-section{
+    padding: 0px;
+    margin: 0%;
+}
+
+
+.row{
+    overflow-x:auto;
+    padding-bottom:20px;
+}
+
+.row::-webkit-scrollbar{
+    display: none;
+}
+.row::-webkit-scrollbar-thumb{
+    display: none;
+}
+.row::-webkit-scrollbar-track{
+    display: none;
+}
+
+.row-track{
+    display:flex;
+    gap:30px;
+}
+
+.row-track img{
+    height: 40vh;
+    border-radius:28px;
+    cursor:pointer;
+    transition:.5s;
+    filter:brightness(.85);
+}
+
+
+#preloader{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
+    transition:opacity 1.2s ease, visibility 1.2s ease;
+}
+
+#preloader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-text{
+    font-size:35px;
+    letter-spacing:1px;
+    color:white;
+    text-align: center;
+    animation:pulse 1.6s infinite alternate;
+}
+
+@keyframes pulse{
+    from{
+        opacity:.4;
+        text-shadow:0 0 10px #fff;
+    }
+    to{
+        opacity:1;
+        text-shadow:0 0 50px #ff0077;
+    }
+}
+
+    </style>
+</head>
+<body>
+<div id="preloader">
+    <div class="loader-text">
+        🫦
+        <br>
+        Yükleniyor... 
+    </div>
+</div>
+
+    <button id="music-toggle" onclick="toggleMusic()">🎵</button>
+    
+    <audio id="bg-music" loop>
+        <source src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/Magdalena Bay - Killshot (slowed + reverb) (Official Audio).mp3" type="audio/mpeg">
+    </audio>
+
+    <section class="hero">
+        <h3>Hızır Peker</h3>
+        <p style="color: var(--accent);">Karizma ve gücün baş yapıtı</p>
+    </section>
+
+    <div class="album-container">
+        <div class="photo-card" onclick="zoomImg(this)">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/20.jpg" alt="">
+        </div>
+        
+        <section class="row-section">
+
+    <div class="row">
+        <div class="row-track">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/1.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/19.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/17.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/2.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/5.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/4.png">
+        </div>
+    </div>
+</section>
+
+        <div class="photo-card" onclick="zoomImg(this)">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/22.jpg" alt="">
+        </div>
+        <div class="photo-card" onclick="zoomImg(this)">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/9.jpg" alt="">
+        </div>
+        <div class="photo-card" onclick="zoomImg(this)">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/28.jpg" alt="">
+        </div>
+    </div>
+    
+    <section class="row-section">
+
+    <div class="row">
+        <div class="row-track">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/13.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/16.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/23.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/26.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/31.jpg">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/25.jpg">
+        </div>
+    </div>
+</section>
+
+<div class="photo-card" onclick="zoomImg(this)">
+            <img src="https://raw.githubusercontent.com/hbb200009/Proje001/refs/heads/main/images/7.jpg" alt="">
+        </div>
+
+    <div class="modal" id="modal" onclick="this.classList.remove('active')">
+        <img src="" class="modal-img" id="full-img">
+    </div>
+  
+</body>
+</html>
