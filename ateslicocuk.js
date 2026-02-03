@@ -38,9 +38,15 @@ function kontrolEt() {
             }
         }
         
-window.addEventListener("load", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
     const preloader = document.getElementById("preloader");
-    setTimeout(()=>{
+
+    setTimeout(() => {
         preloader.classList.add("hide");
-    }, 800); // küçük dramatik bekleme 😏
+    }, 1000); // cinematic delay 😏
+
+    // tamamen silmek istersen:
+    setTimeout(() => {
+        preloader.remove();
+    }, 2500);
 });
