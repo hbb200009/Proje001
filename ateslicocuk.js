@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
         preloader.classList.add("hide");
+        preloader.style.display = "none";
     }, 1000); // cinematic delay 😏
 
     // tamamen silmek istersen:
