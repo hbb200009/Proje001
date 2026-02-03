@@ -170,19 +170,19 @@
     align-items:center;
     justify-content:center;
     z-index:99999;
-    transition:opacity 1.2s ease, visibility 1.2s ease;
+    opacity:1;
+    transition:opacity 1.2s ease;
 }
 
 #preloader.hide{
     opacity:0;
-    visibility:hidden;
+    pointer-events:none;
 }
 
 .loader-text{
-    font-size:35px;
-    letter-spacing:1px;
+    font-size:72px;
+    letter-spacing:10px;
     color:white;
-    text-align: center;
     animation:pulse 1.6s infinite alternate;
 }
 
